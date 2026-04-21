@@ -121,12 +121,6 @@ git config --global user.name "Your Name"
 git config --global user.email "you@example.com"
 ```
 
-Set credential helper (Windows):
-
-```powershell
-git config --global credential.helper manager-core
-```
-
 Log in to GitHub CLI:
 
 ```powershell
