@@ -11,6 +11,12 @@ Run all commands below from your project root folder (the folder that contains `
 3. Install with default options.
 4. Open VS Code once installation is complete.
 
+Recommended installer options for easier workflow:
+
+1. Add `Open with Code` action to Windows Explorer (file and directory context menu).
+2. Register Code as an editor for supported file types.
+3. Add to PATH (so `code` command works in terminal).
+
 Why: VS Code gives you an editor, terminal, and extensions in one place.
 
 ## 1.1) Set VS Code integrated terminal to PowerShell
@@ -85,6 +91,12 @@ Why: Node.js runs your JavaScript server and npm manages packages.
 ```powershell
 git --version
 ```
+
+Important Git installer settings for VS Code users:
+
+1. Choose `Use Visual Studio Code as Git's default editor`.
+2. PATH option: choose `Git from the command line and also from 3rd-party software`.
+3. Line ending option: keep recommended default (`Checkout Windows-style, commit Unix-style`).
 
 Why: Git tracks code history and lets you collaborate.
 
