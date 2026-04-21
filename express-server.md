@@ -2,6 +2,10 @@
 
 This guide uses JavaScript (ES Modules) and matches your package.json setup.
 
+Before starting this guide, complete the pre-step:
+
+[setup-enviroment.md](./setup-enviroment.md)
+
 ## 1) Create a new Node.js project
 
 Open a terminal in your project folder and run:
@@ -231,28 +235,34 @@ app.listen(PORT, () => {
 });
 ```
 
-## 11) Install Postman (to test POST and request bodies)
+## 11) Learn Postman (official guides)
 
-Where to get Postman:
+Use this official Postman guide as your main learning path:
+
+1. First request walkthrough: https://learning.postman.com/docs/getting-started/first-steps/sending-the-first-request
+
+Install Postman:
 
 1. Go to https://www.postman.com/downloads/
 2. Download Postman for Windows.
 3. Run the installer and sign in (or continue with a free account).
 
-Why you need Postman:
+Why use Postman:
 
-1. Browsers are easy for simple GET URL tests.
-2. POST/PUT/PATCH/DELETE with JSON body are much easier in Postman.
-3. You can set headers like `Content-Type: application/json` quickly.
-4. You can save and reuse requests for debugging and team sharing.
+1. Browser is good for simple GET URLs only.
+2. APIs often need method control (`POST`, `PUT`, `DELETE`) and JSON body.
+3. Postman lets you set headers, body, params, and auth in one place.
+4. You can save requests as a collection and reuse them for debugging/testing.
 
-## 12) Test POST in Postman
+## 12) Send your first POST request in Postman
 
-1. Open Postman and click `New` -> `HTTP Request`.
+Follow the official "first request" flow, but target your local Express API.
+
+1. Open Postman and create a new HTTP request.
 2. Set method to `POST`.
 3. URL: `http://localhost:3000/`
-4. Go to `Body` -> select `raw` -> choose `JSON`.
-5. Paste:
+4. Open `Body` -> choose `raw` -> choose `JSON`.
+5. Paste this JSON body:
 
 ```json
 {
@@ -273,6 +283,12 @@ Why you need Postman:
 	}
 }
 ```
+
+8. Next quick checks in Postman:
+
+- `GET http://localhost:3000/`
+- `GET http://localhost:3000/123`
+- `GET http://localhost:3000/search?name=bed&role=student`
 
 ## 13) Starting the server
 

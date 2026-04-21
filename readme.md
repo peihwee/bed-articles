@@ -8,8 +8,9 @@ Follow these guides in order:
 
 | Step | Article | Description |
 |------|---------|-------------|
-| 1 | [Express Server Setup](./express-server.md) | Create and run an Express server using JavaScript ES Modules, nodemon, and dotenv |
-| 2 | [Express CRUD Routes](./express-routes.md) | Build GET, POST, PUT, and DELETE routes with explanations and Postman testing steps |
+| 1 | [Setup Environment](./setup-enviroment.md) | Pre-step: install tools, set Git credentials, clone repo, and learn `.gitignore`, `.env`, `node_modules`, and dependency workflow |
+| 2 | [Express Server Setup](./express-server.md) | Create and run an Express server using JavaScript ES Modules, nodemon, and dotenv |
+| 3 | [Express CRUD Routes](./express-routes.md) | Build GET, POST, PUT, and DELETE routes with explanations and Postman testing steps |
 
 ## Additional Reading
 
