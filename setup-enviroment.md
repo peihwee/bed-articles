@@ -2,6 +2,8 @@
 
 Complete this guide before [express-server.md](./express-server.md).
 
+Run all commands below from your project root folder (the folder that contains `package.json`) unless stated otherwise.
+
 ## 1) Install Visual Studio Code
 
 1. Go to https://code.visualstudio.com/
@@ -10,6 +12,56 @@ Complete this guide before [express-server.md](./express-server.md).
 4. Open VS Code once installation is complete.
 
 Why: VS Code gives you an editor, terminal, and extensions in one place.
+
+## 1.1) Set VS Code integrated terminal to PowerShell
+
+1. Open VS Code.
+2. Press `Ctrl + Shift + P`.
+3. Run `Terminal: Select Default Profile`.
+4. Choose `PowerShell`.
+5. Open a new terminal (`Terminal` -> `New Terminal`).
+
+Quick check in the terminal:
+
+```powershell
+$PSVersionTable.PSVersion
+```
+
+Why: this guide uses PowerShell commands, so matching terminal profile avoids command syntax issues.
+
+## 1.2) Open terminal directly at the project root
+
+When you need to run project commands, open terminal in the root folder:
+
+1. In VS Code Explorer, right-click the root project folder.
+2. Click `Open in Integrated Terminal`.
+
+If you cannot find the Explorer icon, open it with:
+
+- `Ctrl + Shift + E` (Explorer shortcut)
+- or `Ctrl + Shift + P`, then run `View: Show Explorer`
+
+Useful integrated terminal shortcuts:
+
+- ``Ctrl + ` ``: toggle terminal panel
+- ``Ctrl + Shift + ` ``: create new terminal
+
+If you cannot find the backtick key (`), use this keyboard reference image:
+
+![Backtick key reference](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_7V3Rlmv1yph87WNJkKBVmFT-ukD9E_s5Sg&s)
+
+You can confirm you are at the root with:
+
+```powershell
+Get-Location
+```
+
+Why root folder is important:
+
+1. `npm install`, `npm run dev`, and `npm uninstall` use the nearest `package.json`.
+2. Running npm commands in the wrong folder can install packages in the wrong place.
+3. Git commands should run in the repository root so staging/commit/sync targets the correct project.
+4. Tooling files like `.gitignore`, `.env`, and `package-lock.json` are managed from root.
 
 ## 2) Install Node.js
 
@@ -91,6 +143,8 @@ Then enter the project folder:
 cd REPO
 ```
 
+Tip: replace `REPO` with the actual folder name created by clone.
+
 ## 7) Create `.gitignore` and understand why
 
 Create `.gitignore` in the project root:
@@ -105,6 +159,12 @@ Why `.gitignore` matters:
 1. Prevents committing files that are local-only or sensitive.
 2. Keeps repository clean and small.
 3. Avoids environment-specific conflicts between teammates.
+
+Important: `.gitignore` only affects untracked files. If `.env` or `node_modules` was already committed before, remove it from tracking once:
+
+```powershell
+git rm -r --cached node_modules .env
+```
 
 ## 8) What is `.env` and why ignore it
 
@@ -155,7 +215,32 @@ This updates:
 Try it quickly:
 
 1. Create `test-color.js`
-2. Paste:
+2. Make sure your project is in ES Module mode:
+
+```powershell
+npm pkg set type="module"
+```
+
+```json
+{
+	"type": "module"
+}
+```
+
+Optional check:
+
+```powershell
+npm pkg get type
+```
+
+This is required because `import chalk from 'chalk';` uses ESM `import` syntax.
+
+If you do not set `type` to `module`, use one of these alternatives:
+
+1. Rename file to `test-color.mjs`, or
+2. Use CommonJS syntax (`const chalk = require('chalk')`) in a CommonJS project.
+
+3. Paste:
 
 ```js
 import chalk from 'chalk';
@@ -165,7 +250,7 @@ console.log(chalk.yellow('Warning message in yellow'));
 console.log(chalk.red('Error message in red'));
 ```
 
-3. Run:
+4. Run:
 
 ```powershell
 node test-color.js
@@ -197,14 +282,27 @@ This removes it from `package.json`, lockfile, and `node_modules`.
 
 ## 11) Faster clone and sync using Visual Studio Code
 
+Official reference (recommended):
+
+https://code.visualstudio.com/docs/sourcecontrol/quickstart
+
 ### A) Fast clone in VS Code UI
 
 1. Open VS Code.
-2. Press `Ctrl + Shift + P`.
-3. Run command: `Git: Clone`.
-4. Paste repository URL given to you.
+
+> **Important:** Open a new/empty VS Code window first (`File` -> `New Window`).
+> The clone option is easiest to see in an empty window (Welcome page or Command Palette).
+
+2. Open Source Control (`Ctrl + Shift + G`).
+3. Click `Clone Repository`.
+4. Paste the repository URL given to you.
 5. Choose local folder.
 6. Click `Open` when clone finishes.
+
+If you do not see `Clone Repository`, use Command Palette:
+
+- Press `Ctrl + Shift + P`
+- Run `Git: Clone`
 
 ### B) Fast sync in Source Control panel
 
