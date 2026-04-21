@@ -245,11 +245,41 @@ Expected response:
 
 ---
 
-## 7) HTTP status codes used in CRUD
+## 7) Common HTTP status codes (quick reference)
 
-| Code | Meaning | When to use |
-|------|---------|-------------|
+### Success (`2xx`)
+
+| Code | Meaning | Common API usage |
+|------|---------|------------------|
 | `200` | OK | Successful GET, PUT, DELETE |
-| `201` | Created | Successful POST |
-| `404` | Not Found | Resource with that id does not exist |
-| `400` | Bad Request | Missing or invalid data in body |
+| `201` | Created | Successful POST (new resource created) |
+| `204` | No Content | Successful request with no response body (often DELETE/PUT) |
+
+### Client errors (`4xx`)
+
+| Code | Meaning | Common API usage |
+|------|---------|------------------|
+| `400` | Bad Request | Missing/invalid request body, params, or query |
+| `401` | Unauthorized | Missing or invalid authentication token |
+| `403` | Forbidden | Authenticated, but no permission to access resource |
+| `404` | Not Found | Route does not exist or resource id not found |
+| `409` | Conflict | Duplicate resource / state conflict |
+| `422` | Unprocessable Entity | Validation failed (format is correct but data is invalid) |
+| `429` | Too Many Requests | Rate limit exceeded |
+
+### Server errors (`5xx`)
+
+| Code | Meaning | Common API usage |
+|------|---------|------------------|
+| `500` | Internal Server Error | Unexpected server-side error |
+| `502` | Bad Gateway | Upstream dependency returned invalid response |
+| `503` | Service Unavailable | Server temporarily overloaded/maintenance |
+| `504` | Gateway Timeout | Upstream service took too long to respond |
+
+---
+
+## Next step
+
+Now continue to structure this CRUD app using MVC:
+
+[express-mvc.md](./express-mvc.md)
