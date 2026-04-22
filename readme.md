@@ -12,6 +12,7 @@ Follow these guides in order:
 | 2 | [Express Server Setup](./express-server.md) | Create and run an Express server using JavaScript ES Modules, nodemon, and dotenv |
 | 3 | [Express CRUD Routes](./express-routes.md) | Build GET, POST, PUT, and DELETE routes with explanations and Postman testing steps |
 | 4 | [Express MVC Structure](./express-mvc.md) | Move CRUD logic into MVC folders (`routes`, `controllers`, `services`, `models`) using a `/users` example |
+| 5 | [LibSQL + Drizzle ORM Setup](./libsql-setup.md) | Replace in-memory arrays with a persistent LibSQL database and Drizzle ORM in the MVC project |
 
 ## Additional Reading
 
