@@ -21,4 +21,7 @@ Follow these guides in order:
 | [Set Node Environment](./set-node-env.md) | Notes on setting and using environment variables with dotenv in a Node.js project |
 | [Troubleshooting Guide](./troubleshooting.md) | Fix common Express issues such as `Cannot GET /`, stack traces, terminal errors, and debugging with `console.log` |
 | [About Functions](./about-functions.md) | Learn JavaScript function basics, inputs/outputs, named functions, anonymous functions, arrow functions, and callbacks |
+| [About Callback and Async/Await](./about-async.md) | Learn callback flow, callback pitfalls, Promise basics, async/await syntax, and error handling in Express-style code |
+| [HTTP Basics: Protocol, Messages, Methods, and Status Codes](./http-req.md) | Learn HTTP protocol fundamentals, message structure, methods, and status codes with backend-focused examples |
+| [REST API Basics and Endpoint Design (With MVC)](./rest-api.md) | Learn what REST API means, how to design endpoints with MVC, and which route naming patterns are not REST-style |
 | [Express Middleware Guide](./expresss-middleware.md) | Learn what middleware functions are, how `next()` works, and how built-in Express middleware like `express.json()` and `express.urlencoded()` are used |
