@@ -318,11 +318,7 @@ Ref: Pokemon.dex_num > Pokedex.number
 
 ### Live Diagram Preview
 
-Here is the Pokemon ERD visualized in dbdiagram.io. You can interact with it directly:
-
-<iframe width="100%" height="500" src='https://dbdiagram.io/d/Pokemon-643f4f646b31947051d2e8c7'></iframe>
-
-If the iframe does not render in your Markdown viewer, open this link directly: https://dbdiagram.io/d/Pokemon-643f4f646b31947051d2e8c7
+Here is the Pokemon ERD visualized in dbdiagram.io. You can interact with it via this link directly: https://dbdiagram.io/d/Pokemon-643f4f646b31947051d2e8c7
 
 **Try these interactions:**
 
