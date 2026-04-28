@@ -4,6 +4,20 @@ Continue this after [about-functions.md](./about-functions.md).
 
 This guide teaches you how functions work as values in Express, why arrow functions are the standard, and how to write production-ready controllers.
 
+## Official references (read these first)
+
+Before or after this guide, read the official MDN references:
+
+1. [MDN Glossary: First-class Function](https://developer.mozilla.org/en-US/docs/Glossary/First-class_Function)
+2. [MDN JavaScript Reference: Arrow function expressions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+
+Why this matters for learners:
+
+1. MDN gives precise definitions, so your fundamentals are accurate.
+2. MDN explains edge cases that tutorials often skip (especially arrow function `this`, `arguments`, and constructor behavior).
+3. When debugging real projects, official docs help you verify behavior quickly instead of guessing.
+4. Building a habit of checking primary references makes you more independent as a developer.
+
 ## 1) What is a first-class function?
 
 In JavaScript, you should think of functions as values.
