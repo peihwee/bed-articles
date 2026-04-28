@@ -24,6 +24,7 @@ Follow these guides in order:
 | [About Functions](./about-functions.md) | Learn JavaScript function basics, inputs/outputs, named functions, anonymous functions, arrow functions, and callbacks |
 | [First-Class Functions and Arrow Functions in Express](./first-class-functions.md) | Learn why functions are values in Express, why arrow functions are standard in controllers, and how to write production-ready handlers with `const` exports |
 | [About Callback and Async/Await](./about-async.md) | Learn callback flow, callback pitfalls, Promise basics, async/await syntax, and error handling in Express-style code |
+| [Try/Catch in JavaScript and Express](./try-catch.md) | Learn try/catch fundamentals, graceful Express error responses, and how to debug hidden stack traces effectively |
 | [HTTP Basics: Protocol, Messages, Methods, and Status Codes](./http-req.md) | Learn HTTP protocol fundamentals, message structure, methods, and status codes with backend-focused examples |
 | [HTTP Variables in Express: req and res](./http-variables.md) | Learn req.query, req.params, req.body, res.locals, and how to read Express docs with methods vs properties in mind |
 | [REST API Basics and Endpoint Design (With MVC)](./rest-api.md) | Learn what REST API means, how to design endpoints with MVC, and which route naming patterns are not REST-style |
