@@ -585,10 +585,10 @@ For team production systems, prefer migration files.
 At controller/model boundary:
 
 1. Validate input before model call.
-2. Use middleware to guard request rules before controller runs.
+2. Check whether user already exists before insert.
 3. Return meaningful HTTP status and message.
 
-Example middleware-first handling:
+Example controller-first handling:
 
 ### src/models/userModel.js (helper)
 
@@ -615,51 +615,15 @@ export const selectUserByEmail = async (payload) => {
 };
 ```
 
-### src/middlewares/userMiddleware.js
-
-```js
-/* ----------------------------
-   IMPORTS
------------------------------- */
-import { selectUserByEmail } from '../models/userModel.js';
-
-/* ----------------------------
-   CREATE USER GUARD
------------------------------- */
-
-export const validateCreateUser = async (req, res, next) => {
-	const payload = {
-		name: req.body.name,
-		email: req.body.email
-	};
-
-	if (!payload.name || !payload.email) {
-		res.status(400).json({ message: 'name and email are required' });
-		return;
-	}
-
-	const existing = await selectUserByEmail({ email: payload.email });
-	if (existing) {
-		res.status(409).json({ message: 'Email already exists' });
-		return;
-	}
-
-	// Keep validated payload so controller does not repeat validation work
-	res.locals.payload = payload;
-	next();
-};
-```
-
 ### routes/userRoutes.js
 
 ```js
 import { Router } from 'express';
 import { postUser } from '../controllers/userController.js';
-import { validateCreateUser } from '../middlewares/userMiddleware.js';
 
 const router = Router();
 
-router.post('/', validateCreateUser, postUser);
+router.post('/', postUser);
 
 export default router;
 ```
@@ -670,7 +634,16 @@ export default router;
 /* ----------------------------
    IMPORTS
 ------------------------------ */
-import { insertUser } from '../models/userModel.js';
+import { insertUser, selectUserByEmail } from '../models/userModel.js';
+
+/* ----------------------------
+   GUARD FUNCTION
+------------------------------ */
+
+const checkUserExist = async (payload) => {
+	const result = await selectUserByEmail({ email: payload.email });
+	return result;
+};
 
 /* ----------------------------
    CREATE HANDLER
@@ -678,7 +651,22 @@ import { insertUser } from '../models/userModel.js';
 
 export const postUser = async (req, res) => {
 	try {
-		const payload = res.locals.payload;
+		const payload = {
+			name: req.body.name,
+			email: req.body.email
+		};
+
+		if (!payload.name || !payload.email) {
+			res.status(400).json({ message: 'name and email are required' });
+			return;
+		}
+
+		const existingUser = await checkUserExist(payload);
+		if (existingUser) {
+			res.status(409).json({ message: 'Email already exists' });
+			return;
+		}
+
 		const result = await insertUser(payload);
 
 		res.status(201).json({
@@ -695,11 +683,12 @@ export const postUser = async (req, res) => {
 
 How this example works:
 
-1. Middleware validates required fields before controller logic runs.
-2. Middleware checks whether email already exists and returns `409` early.
-3. Middleware stores clean payload in `res.locals.payload`.
-4. Controller becomes simple: insert and return `201`.
-5. Controller catch block now focuses on unexpected server errors.
+1. Controller prepares payload from request body.
+2. Controller validates required fields before database write.
+3. `checkUserExist(payload)` runs a lookup by email.
+4. If user exists, controller returns `409` early.
+5. If user does not exist, controller inserts and returns `201`.
+6. Catch block focuses on unexpected server errors.
 
 This shows how ORM code fits into an Express endpoint: controller for HTTP, model for database work, response for the client.
 
