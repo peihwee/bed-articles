@@ -619,11 +619,11 @@ export const selectUserByEmail = async (payload) => {
 
 ```js
 import { Router } from 'express';
-import { postUser } from '../controllers/userController.js';
+import { checkUserExist, postUser } from '../controllers/userController.js';
 
 const router = Router();
 
-router.post('/', postUser);
+router.post('/', checkUserExist, postUser);
 
 export default router;
 ```
@@ -637,12 +637,24 @@ export default router;
 import { insertUser, selectUserByEmail } from '../models/userModel.js';
 
 /* ----------------------------
-   GUARD FUNCTION
+   GUARD MIDDLEWARE
 ------------------------------ */
 
-const checkUserExist = async (payload) => {
-	const result = await selectUserByEmail({ email: payload.email });
-	return result;
+export const checkUserExist = async (req, res, next) => {
+	const email = req.body.email;
+
+	if (!email) {
+		res.status(400).json({ message: 'email is required' });
+		return;
+	}
+
+	const existingUser = await selectUserByEmail({ email });
+	if (existingUser) {
+		res.status(409).json({ message: 'Email already exists' });
+		return;
+	}
+
+	next();
 };
 
 /* ----------------------------
@@ -658,12 +670,6 @@ export const postUser = async (req, res) => {
 
 		if (!payload.name || !payload.email) {
 			res.status(400).json({ message: 'name and email are required' });
-			return;
-		}
-
-		const existingUser = await checkUserExist(payload);
-		if (existingUser) {
-			res.status(409).json({ message: 'Email already exists' });
 			return;
 		}
 
@@ -683,12 +689,11 @@ export const postUser = async (req, res) => {
 
 How this example works:
 
-1. Controller prepares payload from request body.
-2. Controller validates required fields before database write.
-3. `checkUserExist(payload)` runs a lookup by email.
-4. If user exists, controller returns `409` early.
-5. If user does not exist, controller inserts and returns `201`.
-6. Catch block focuses on unexpected server errors.
+1. Route runs `checkUserExist` before `postUser`.
+2. `checkUserExist` looks up by email and returns `409` if user already exists.
+3. If no duplicate is found, middleware calls `next()` to continue.
+4. Controller validates payload and handles insert only.
+5. Controller returns `201` on success and `500` for unexpected errors.
 
 This shows how ORM code fits into an Express endpoint: controller for HTTP, model for database work, response for the client.
 
