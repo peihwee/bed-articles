@@ -641,20 +641,36 @@ import { insertUser, selectUserByEmail } from '../models/userModel.js';
 ------------------------------ */
 
 export const checkUserExist = async (req, res, next) => {
-	const email = req.body.email;
 
-	if (!email) {
-		res.status(400).json({ message: 'email is required' });
+    if(!req.body)
+    {
+        res.status(400).json({ message: 'Request body cannot be undefined' });
+		return;
+    }
+
+    if (!req.body.name || !req.body.email) 
+    {
+		res.status(400).json({ message: 'Name and Email are required' });
 		return;
 	}
 
-	const existingUser = await selectUserByEmail({ email });
-	if (existingUser) {
-		res.status(409).json({ message: 'Email already exists' });
+    try {
+        const payload = {
+            email: req.body.email
+        };
+
+        const existingUser = await selectUserByEmail(payload);
+        if (existingUser) {
+            res.status(409).json({ message: 'Email already exists' });
+            return;
+        }
+
+        next();
+    } 
+    catch (error) {
+		res.status(500).json({ message: 'Internal Server Error' });
 		return;
 	}
-
-	next();
 };
 
 /* ----------------------------
@@ -668,11 +684,6 @@ export const postUser = async (req, res) => {
 			email: req.body.email
 		};
 
-		if (!payload.name || !payload.email) {
-			res.status(400).json({ message: 'name and email are required' });
-			return;
-		}
-
 		const result = await insertUser(payload);
 
 		res.status(201).json({
@@ -680,7 +691,8 @@ export const postUser = async (req, res) => {
 			data: result
 		});
 		return;
-	} catch (error) {
+	} 
+    catch (error) {
 		res.status(500).json({ message: 'Internal Server Error' });
 		return;
 	}
