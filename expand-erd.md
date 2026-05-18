@@ -29,7 +29,12 @@ Table Plots {
 	owner_id INT [not null]
 }
 
-Ref: Users.id > Plots.owner_id
+Ref: Plots.owner_id > Users.id
+```
+
+You can also set the relationship in the following way.
+```
+Ref: Users.id < Plots.owner_id  
 ```
 
 ## 2) Check the file structure
