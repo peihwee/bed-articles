@@ -380,4 +380,16 @@ Step 5: Try a `seed_type` value that does not exist and decide what response you
 
 Step 6: Refresh Drizzle Studio if needed to compare the API response with the stored data.
 
+## 16) Run automated tests with the external test case repo
+
+Step 1: Use this test case repository:
+
+https://github.com/Mr-Siah-Class/testcases-practice-01
+
+Step 2: Follow that repository setup so you can run the test suite against your API automatically.
+
+Step 3: Read the README in that repo first to see exactly which routes are being tested.
+
+Step 4: Run the test cases and use the results to confirm your endpoints and responses match the expected behavior.
+
 
