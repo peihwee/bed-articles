@@ -1,5 +1,7 @@
 # JWT Middleware in Express
 
+Continue this after [hashing-password.md](./hashing-password.md).
+
 This article continues from the password hashing article.
 
 In the previous guide, you learned how to:

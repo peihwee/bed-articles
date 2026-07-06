@@ -1,5 +1,7 @@
 # Hashing Passwords With bcrypt Middleware in Express
 
+Continue this after [libsql-setup.md](./libsql-setup.md).
+
 When building login and registration features, you should never store plain text passwords.
 
 Instead, you should:

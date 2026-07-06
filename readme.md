@@ -14,6 +14,9 @@ Follow these guides in order:
 | 4 | [Express MVC Structure](./express-mvc.md) | Move CRUD logic into MVC folders (`routes`, `controllers`, `services`, `models`) using a `/users` example |
 | 5 | [ERD Design, REST API, and MVC](./design-erd.md) | Design database schemas with dbdiagram.io, understand entities and relationships, and see how ERD design drives REST API and MVC structure (Pokemon example) |
 | 6 | [LibSQL + Drizzle ORM Setup](./libsql-setup.md) | Replace in-memory arrays with a persistent LibSQL database and Drizzle ORM in the MVC project |
+| 7 | [Hashing Passwords with bcrypt Middleware](./hashing-password.md) | Hash passwords before saving, compare login passwords against stored hashes, and use reusable bcrypt middleware in Express |
+| 8 | [JWT Middleware in Express](./jwtwebtoken.md) | Generate and verify JWTs, configure token env variables, and protect routes using reusable JWT middleware |
+| 9 | [Frontend Fetch Guide](./frontend-fetch.md) | Build a frontend page in `public`, use `getCurrentURL.js` and `queryCmds.js`, and render API data to the DOM with `fetch` |
 
 ## Additional Reading
 
