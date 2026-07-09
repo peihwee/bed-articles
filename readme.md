@@ -33,3 +33,4 @@ Follow these guides in order:
 | [REST API Basics and Endpoint Design (With MVC)](./rest-api.md) | Learn what REST API means, how to design endpoints with MVC, and which route naming patterns are not REST-style |
 | [Express Middleware Guide](./expresss-middleware.md) | Learn what middleware functions are, how `next()` works, and how built-in Express middleware like `express.json()` and `express.urlencoded()` are used |
 | [Drizzle ORM Detailed Guide](./drizzle-orm.md) | Learn Drizzle ORM concepts in depth, from schema and CRUD queries to joins, transactions, and migration workflow |
+| [Local Storage and DOM Guide](./localstorage.md) | Learn what DOM is, how login form values are read in JavaScript, and how JWT tokens are stored and cleared using localStorage |
