@@ -39,9 +39,9 @@ In simple words:
 
 ---
 
-## 2) Your Login HTML (DOM Source)
+## 2) Example Login HTML (DOM Source)
 
-You already have this structure in `login.html`:
+Use this structure in `login.html`:
 
 ```html
 <main class="py-4">
@@ -81,25 +81,29 @@ Important DOM IDs used by JavaScript:
 
 ---
 
-## 3) Why `DOMContentLoaded` Is Used
+## 3) Why We Use `DOMContentLoaded`
 
-From your `loginUser.js`:
+In this snippet, we start with:
 
 ```javascript
 document.addEventListener("DOMContentLoaded", function () {
-	// your login logic here
+	// login logic here
 });
 ```
 
-This waits until HTML is parsed, so elements like `loginForm` already exist in DOM.
+This means: "Run my JavaScript only after the browser has finished building the page structure (DOM)."
 
-If you try `document.getElementById("loginForm")` too early, it may return `null`.
+Why this matters to you:
+
+1. We want to access elements like `loginForm`, `username`, and `password` safely.
+2. If JavaScript runs too early, `document.getElementById(...)` can return `null`.
+3. `DOMContentLoaded` prevents that common beginner error.
 
 ---
 
-## 4) Step-by-Step Flow of Your `loginUser.js`
+## 4) Step-by-Step Teaching Walkthrough of `loginUser.js`
 
-Your current script:
+Use this exact snippet while explaining each step:
 
 ```javascript
 document.addEventListener("DOMContentLoaded", function () {
@@ -145,17 +149,29 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 ```
 
-Student explanation:
+What this code does step by step:
 
-1. Wait for DOM to load.
-2. Find required DOM elements by ID.
-3. Listen to form submit event.
-4. Prevent default form refresh with `event.preventDefault()`.
-5. Read input values from DOM (`username`, `password`).
-6. Send POST login request.
-7. If login success and token exists, save token in `localStorage`.
-8. Redirect user to `profile.html`.
-9. If login fails, show warning card and message in DOM.
+1. `document.addEventListener("DOMContentLoaded", ...)`
+	Start only after DOM is ready.
+2. `const loginForm = document.getElementById("loginForm")`
+	Grab the form once so we can attach events to it.
+3. `loginForm.addEventListener("submit", function (event) { ... })`
+	Listen for the user clicking **Login**.
+4. `event.preventDefault()`
+	Stop the browser's default form behavior (page refresh).
+5. `document.getElementById("username").value` and `...("password").value`
+	Read what the user typed from DOM inputs.
+6. `fetchMethod(currentUrl + "/api/login", callback, "POST", data)`
+	Send login data to backend API.
+7. Inside `callback`, check API result:
+	If token exists, save it with `localStorage.setItem("token", ...)`.
+8. `window.location.href = "profile.html"`
+	Move user to protected page after successful login.
+9. On error, show warning in DOM:
+	`warningCard.classList.remove("d-none")` and set `warningText`.
+
+Practice tip for you:
+Trace one full login flow: typing input -> submit -> API response -> token storage -> redirect.
 
 ---
 
@@ -163,7 +179,7 @@ Student explanation:
 
 `localStorage` is browser storage for key-value string data.
 
-Main points for students:
+Main points for you:
 
 1. Data stays after refresh.
 2. Data stays after browser restart.
@@ -181,9 +197,9 @@ localStorage.clear();
 
 ---
 
-## 6) Improved Teaching Version of `loginUser.js`
+## 6) Beginner-Friendly Version of `loginUser.js`
 
-Below is a cleaned-up version of your script with clearer checks and warning handling.
+This version keeps the same logic, but it is easier for you to read because warning behavior is grouped into small helper functions.
 
 ```javascript
 document.addEventListener("DOMContentLoaded", function () {
@@ -237,7 +253,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 ## 7) Script Loading Order in `login.html`
 
-Your script tags before `</body>` are correct:
+Place script tags before `</body>` like this:
 
 ```html
 <script src="js/queryCmds.js" type="text/javascript"></script>
@@ -275,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 ```
 
-Key lesson:
+Key points for you:
 
 1. Read token from `localStorage`.
 2. If token missing, force login.
@@ -298,7 +314,7 @@ You can connect this to a logout button click event.
 
 ## 10) Mini Classroom Checklist
 
-After students finish this topic, they should be able to:
+After finishing this topic, you should be able to:
 
 1. Explain DOM in one sentence.
 2. Use `document.getElementById()` to read input values.
