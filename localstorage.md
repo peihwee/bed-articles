@@ -10,6 +10,15 @@ This guide teaches you how to:
 4. Use token for protected API requests.
 5. Log out by clearing stored token.
 
+Official documentation (recommended while studying):
+
+1. DOM (Document Object Model): [MDN DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
+2. DOMContentLoaded event: [MDN DOMContentLoaded](https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event)
+3. `document.getElementById()`: [MDN getElementById](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById)
+4. localStorage: [MDN localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+5. Web Storage API: [MDN Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Storage)
+6. Fetch API (base concept behind wrapper functions like `fetchMethod`): [MDN Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+
 ---
 
 ## 1) What Is DOM?
@@ -163,6 +172,7 @@ What this code does step by step:
 	Read what the user typed from DOM inputs.
 6. `fetchMethod(currentUrl + "/api/login", callback, "POST", data)`
 	Send login data to backend API.
+	If `fetchMethod` is new to you, review [frontend-fetch.md](./frontend-fetch.md).
 7. Inside `callback`, check API result:
 	If token exists, save it with `localStorage.setItem("token", ...)`.
 8. `window.location.href = "profile.html"`
@@ -268,6 +278,77 @@ Why this works:
 2. `loginUser.js` uses `currentUrl` from `getCurrentURL.js`.
 3. So dependencies are loaded first.
 
+If needed, revise the `fetchMethod` flow in [frontend-fetch.md](./frontend-fetch.md).
+
+When to load scripts in `<head>` vs before `</body>`:
+
+1. Use `<head>` when:
+	The script must be available early for page setup (for example analytics, critical config, or code that should run before first paint).
+2. If a script is in `<head>`, prefer `defer` for most app scripts:
+	`defer` downloads the file early but runs it after HTML parsing, which avoids blocking rendering.
+3. Use before `</body>` when:
+	The script mainly works with DOM elements on the page (like `loginUser.js` reading form inputs). This ensures elements are already present.
+4. Avoid plain blocking scripts in `<head>`:
+	A normal `<script src="..."></script>` in head runs immediately and can pause HTML parsing, which may hurt page load and cause DOM timing issues.
+
+Quick rule for this project:
+
+1. If the script reads or updates page elements, place it before `</body>`.
+2. If the script is in `<head>`, add `defer` and keep dependency order correct.
+
+Real project-style example (`<head>` + before `</body>`):
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Home</title>
+
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+			crossorigin="anonymous"
+		/>
+		<script
+			src="https://code.jquery.com/jquery-3.7.0.min.js"
+			integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+			crossorigin="anonymous"
+		></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+		<link href="css/style.css" rel="stylesheet" />
+		<link href="css/color.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- page content here -->
+
+		<script src="js/queryCmds.js" type="text/javascript"></script>
+		<script src="js/getCurrentURL.js" type="text/javascript"></script>
+		<script src="js/userNavbarToggle.js" type="text/javascript"></script>
+		<script src="js/showAllPokemon.js" type="text/javascript"></script>
+	</body>
+</html>
+```
+
+How to read this example:
+
+1. Libraries used by many pages (Bootstrap, jQuery, Axios) are loaded early in `<head>`.
+2. Page-level scripts that query DOM or run page features are placed before `</body>`.
+3. Keep dependency order: if one file uses a function from another file, load the dependency first.
+
+Example using `<head>` with `defer` (same order idea for app scripts):
+
+```html
+<script src="js/queryCmds.js" defer></script>
+<script src="js/getCurrentURL.js" defer></script>
+<script src="js/userNavbarToggle.js" defer></script>
+<script src="js/loginUser.js" defer></script>
+```
+
 ---
 
 ## 8) How to Use Stored Token on Protected Pages
@@ -296,6 +377,8 @@ Key points for you:
 1. Read token from `localStorage`.
 2. If token missing, force login.
 3. If token exists, send it as Bearer token in request headers.
+
+Need a refresher on how `fetchMethod` sends requests and headers? Go back to [frontend-fetch.md](./frontend-fetch.md).
 
 ---
 
